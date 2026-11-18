@@ -13,6 +13,7 @@ import mime from 'mime-types';
 // @ts-ignore
 import { getExtension } from 'mime';
 import { IUploadProvider, UploadedStream } from './upload.interface';
+import { s3Endpoint, s3ForcePathStyle } from './s3.config';
 import axios from 'axios';
 import { isSafePublicHttpsUrl } from '@gitroom/nestjs-libraries/dtos/webhooks/webhook.url.validator';
 import { ssrfSafeDispatcher } from '@gitroom/nestjs-libraries/dtos/webhooks/ssrf.safe.dispatcher';
@@ -47,7 +48,8 @@ class CloudflareStorage implements IUploadProvider {
     private _uploadUrl: string
   ) {
     this._client = new S3Client({
-      endpoint: `https://${accountID}.r2.cloudflarestorage.com`,
+      endpoint: s3Endpoint(accountID),
+      forcePathStyle: s3ForcePathStyle(),
       region,
       credentials: {
         accessKeyId: accessKey,

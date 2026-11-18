@@ -66,7 +66,7 @@ export function useUppyUploader(props: {
       restrictions: {
         // maxNumberOfFiles: 5,
         // allowedFileTypes: allowedFileTypes.split(','),
-        maxFileSize: 1000000000, // Default 1GB, but we'll override with custom validation
+        maxFileSize: (Number(process.env.NEXT_PUBLIC_MAX_VIDEO_UPLOAD_MB) || 1024) * 1024 * 1024, // SemiGod fork: NEXT_PUBLIC_MAX_VIDEO_UPLOAD_MB
       },
     });
 
@@ -146,7 +146,7 @@ export function useUppyUploader(props: {
             const isVideo = file.type?.startsWith('video/');
 
             const maxImageSize = 30 * 1024 * 1024; // 30MB
-            const maxVideoSize = 1000 * 1024 * 1024; // 1GB
+            const maxVideoSize = (Number(process.env.NEXT_PUBLIC_MAX_VIDEO_UPLOAD_MB) || 1024) * 1024 * 1024; // SemiGod fork
 
             if (isImage && file.size > maxImageSize) {
               const error = new Error(

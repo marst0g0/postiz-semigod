@@ -211,7 +211,7 @@ export const showMediaBox = (
   showModalEmitter.emit('show-modal', callback);
 };
 const CHUNK_SIZE = 1024 * 1024;
-const MAX_UPLOAD_SIZE = 1024 * 1024 * 1024; // 1 GB
+const MAX_UPLOAD_SIZE = (Number(process.env.NEXT_PUBLIC_MAX_VIDEO_UPLOAD_MB) || 1024) * 1024 * 1024; // SemiGod fork: NEXT_PUBLIC_MAX_VIDEO_UPLOAD_MB
 export const MediaBox: FC<{
   setMedia: (params: { id: string; path: string }[]) => void;
   standalone?: boolean;
