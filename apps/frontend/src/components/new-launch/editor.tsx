@@ -70,7 +70,7 @@ import {
 } from '@gitroom/frontend/components/ui/icons';
 import { DelayComponent } from '@gitroom/frontend/components/new-launch/delay.component';
 
-const MAX_UPLOAD_SIZE = 1024 * 1024 * 1024; // 1 GB
+const MAX_UPLOAD_SIZE = (Number(process.env.NEXT_PUBLIC_MAX_VIDEO_UPLOAD_MB) || 1024) * 1024 * 1024; // SemiGod fork: NEXT_PUBLIC_MAX_VIDEO_UPLOAD_MB
 
 const InterceptBoldShortcut = Extension.create({
   name: 'preventBoldWithUnderline',

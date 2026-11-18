@@ -15,6 +15,7 @@ import crypto from 'crypto';
 import path from 'path';
 import { makeId } from '@gitroom/nestjs-libraries/services/make.is';
 import { UploadFactory } from '@gitroom/nestjs-libraries/upload/upload.factory';
+import { s3Endpoint, s3ForcePathStyle } from '@gitroom/nestjs-libraries/upload/s3.config';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { fileTypeFromBuffer } = require('file-type');
 
@@ -55,7 +56,8 @@ const {
 
 const R2 = new S3Client({
   region: 'auto',
-  endpoint: `https://${CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  endpoint: s3Endpoint(CLOUDFLARE_ACCOUNT_ID),
+  forcePathStyle: s3ForcePathStyle(),
   credentials: {
     accessKeyId: CLOUDFLARE_ACCESS_KEY!,
     secretAccessKey: CLOUDFLARE_SECRET_ACCESS_KEY!,
