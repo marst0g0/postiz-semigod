@@ -12,6 +12,9 @@ Todo el cambio vive en commits cuyo mensaje empieza con `[semigod-patch]`
 | `CLOUDFLARE_FORCE_PATH_STYLE` | `.env` del servidor | `true` si el proveedor quiere URLs `/bucket/key` | `false` |
 | `MAX_VIDEO_UPLOAD_MB` | `.env` del servidor | Tope de video en el backend | 1024 |
 | `NEXT_PUBLIC_MAX_VIDEO_UPLOAD_MB` | build arg (workflow) | Tope de video en el frontend | 1024 |
+| `OPENAI_MODEL` | `.env` del servidor | Modelo de texto para TODAS las funciones de IA (chat, mejora de posts, agente, extracción). Ej. `openai/gpt-4.1` en OpenRouter | Los de upstream (`gpt-4.1`, `gpt-5.2`, `gpt-4o-2024-08-06`) |
+| `OPENAI_IMAGE_MODEL` | `.env` del servidor | Modelo de imágenes | `chatgpt-image-latest` |
+| `OPENAI_BASE_URL` | `.env` del servidor | Lo leen los SDK de OpenAI; ej. `https://openrouter.ai/api/v1`. Con esto el agente usa Chat Completions | `https://api.openai.com/v1` |
 
 Se sigue usando `STORAGE_PROVIDER=cloudflare` y el resto de variables `CLOUDFLARE_*`.
 
