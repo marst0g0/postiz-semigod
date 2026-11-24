@@ -1,3 +1,4 @@
+import { textModel } from '@gitroom/nestjs-libraries/openai/openai.models';
 import {
   Logger,
   Controller,
@@ -60,7 +61,7 @@ export class CopilotController {
       cors: copilotCors(),
       runtime: new CopilotRuntime(),
       serviceAdapter: new OpenAIAdapter({
-        model: 'gpt-4.1',
+        model: textModel('gpt-4.1'),
       }),
     });
 
@@ -106,7 +107,7 @@ export class CopilotController {
       cors: copilotCors(),
       runtime,
       serviceAdapter: new OpenAIAdapter({
-        model: 'gpt-4.1',
+        model: textModel('gpt-4.1'),
       }),
     });
 

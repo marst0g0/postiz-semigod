@@ -1,3 +1,4 @@
+import { textModel, imageModel } from '@gitroom/nestjs-libraries/openai/openai.models';
 import { Injectable } from '@nestjs/common';
 import { AutopostRepository } from '@gitroom/nestjs-libraries/database/prisma/autopost/autopost.repository';
 import { AutopostDto } from '@gitroom/nestjs-libraries/dtos/autopost/autopost.dto';
@@ -37,13 +38,13 @@ interface WorkflowChannelsState {
 
 const model = new ChatOpenAI({
   apiKey: process.env.OPENAI_API_KEY || 'sk-proj-',
-  model: 'gpt-4.1',
+  model: textModel('gpt-4.1'),
   temperature: 0.7,
 });
 
 const dalle = new DallEAPIWrapper({
   apiKey: process.env.OPENAI_API_KEY || 'sk-proj-',
-  model: 'chatgpt-image-latest',
+  model: imageModel('chatgpt-image-latest'),
 });
 
 const generateContent = z.object({
