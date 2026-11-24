@@ -1,3 +1,4 @@
+import { textModel, hasCustomOpenAIBaseUrl } from '@gitroom/nestjs-libraries/openai/openai.models';
 import { Injectable } from '@nestjs/common';
 import { Agent } from '@mastra/core/agent';
 import { openai } from '@ai-sdk/openai';
@@ -114,7 +115,9 @@ export class LoadToolsService {
       )}
 `;
       },
-      model: openai('gpt-5.2'),
+      model: hasCustomOpenAIBaseUrl()
+        ? openai.chat(textModel('gpt-5.2'))
+        : openai(textModel('gpt-5.2')),
       tools,
       memory: new Memory({
         storage: pStore,
