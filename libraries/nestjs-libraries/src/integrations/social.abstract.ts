@@ -708,6 +708,20 @@ export abstract class SocialAbstract {
   }
 
   checkScopes(required: string[], got: string | string[]) {
+    // [semigod-patch] registra qué scopes faltan (solo nombres de permisos)
+    const grantedList = Array.isArray(got)
+      ? got
+      : (() => {
+          const decoded = decodeURIComponent(got || '');
+          return decoded.split(decoded.indexOf(',') > -1 ? ',' : ' ');
+        })();
+    const missing = required.filter((scope) => !grantedList.includes(scope));
+    if (missing.length) {
+      console.warn(
+        `[semigod] NotEnoughScopes: faltan [${missing.join(', ')}]; concedidos [${grantedList.join(', ')}]`
+      );
+    }
+
     if (Array.isArray(got)) {
       if (!required.every((scope) => got.includes(scope))) {
         throw new NotEnoughScopes();
