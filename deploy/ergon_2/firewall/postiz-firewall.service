@@ -1,0 +1,12 @@
+[Unit]
+Description=Restringe el puerto 4007 de Postiz al proxy
+After=docker.service network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/postiz-firewall.sh
+
+[Install]
+WantedBy=multi-user.target

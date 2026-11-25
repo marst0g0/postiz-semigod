@@ -37,3 +37,16 @@ git cherry-pick <commit [semigod-patch]>   # resolver conflictos
 
 Si Postiz acepta un endpoint S3 configurable y un tope de video configurable,
 este fork deja de ser necesario: volver a la imagen oficial.
+
+## Despliegue y operación (ergon_2)
+
+Los archivos de operación (compose, Nginx interno, páginas legales, backup, recordatorios y firewall) están en
+[`deploy/ergon_2/`](deploy/ergon_2/README.md), sin secretos. Notas aprendidas en la puesta en marcha:
+
+- El Nginx interno de Postiz espera por defecto 60 s la respuesta del backend; las subidas grandes (800 MB+) daban 504.
+  Se corrige con `proxy_read_timeout`/`proxy_send_timeout` en `deploy/ergon_2/nginx.conf`.
+- Instagram Standalone usa `INSTAGRAM_APP_ID/SECRET` y el callback `/integrations/social/instagram-standalone`; Facebook usa
+  `FACEBOOK_APP_ID/SECRET` y `/integrations/social/facebook`. Facebook solo publica en páginas, no en perfiles personales.
+- El log `[semigod] NotEnoughScopes` (parche `[semigod-patch]`) indica qué scopes faltan; `concedidos []` significa que falló
+  el intercambio del código por el token (secret o redirect URI incorrectos), no un problema de scopes.
+- Con `DISABLE_REGISTRATION=true` una invitación no permite crear la cuenta: hay que abrir el registro temporalmente.
